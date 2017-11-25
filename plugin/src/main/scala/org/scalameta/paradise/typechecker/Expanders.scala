@@ -181,7 +181,7 @@ trait Expanders extends Converter { self: AnalyzerPlugins =>
           val compiler = new { val global: Expanders.this.global.type = Expanders.this.global }
           with SyntaxAnalyzer
           val parser =
-            compiler.newUnitParser(new CompilationUnit(newSourceFile(stringExpansion, "<macro>")))
+            compiler.newUnitParser(new CompilationUnit(newSourceFile(stringExpansion, original.pos.source.path)))
           val expandedTree = gen.mkTreeOrBlock(parser.parseStatsOrPackages())
           removeAllRangePositions(expandedTree)
           Some(expandedTree)
